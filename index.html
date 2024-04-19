@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4AweTUD-3</title>
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <script src="eel.js"></script>
+</head>
+<body>
+    <div class="container p-5">
+        <div class="card">
+            <div class="card-body">
+            <h3 class="card-title text-center">Hasaplamalar</h3>
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Ady</th>
+                    <th scope="col">Kuwwaty</th>
+                  </tr>
+                </thead>
+                <tbody>
+   
+                </tbody>
+              </table>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control name" placeholder="Ady" aria-label="Ady">
+                <span class="input-group-text"></span>
+                <input type="text" class="form-control power" placeholder="Kuwwaty" aria-label="Kuwwaty">
+              </div>
+            <div class="btn btn-success add">Enjam goşmak</div>
+            <div class="btn btn-primary calc">Hasapla</div>
+            <div class="btn btn-danger remove">Arassala</div>
+
+            <ul class="list-group mt-3">
+                <li class="list-group-item">Netije: <span class="result"></span></li>
+                <li class="list-group-item">Mis geçiriji üçin kese-kesiginiň meýdany: <span class="mis"></span></li>
+                <li class="list-group-item">Alýumin geçiriji üçin kese-kesiginiň meýdany: <span class="alyumin"></span></li>
+              </ul>
+          </div>
+        </div>
+    </div>
+    
+    <script src="bootstrap.min.js"></script>
+    <script src="bootstrap.bundle.min.js"></script>
+    <script>
+        const add = document.querySelector('.add')
+        const remove = document.querySelector('.remove')
+        const name = document.querySelector('.name')
+        const power = document.querySelector('.power')
+        const table = document.querySelector('tbody')
+        const result = document.querySelector('.result')
+
+        let data = ``;
+
+        add.addEventListener('click', ()=> {
+            data = `
+                <tr>
+                    <td>${name.value}</td>
+                    <td class="kuwwat">${power.value}</td>
+                </tr>
+            `
+            table.innerHTML += data
+            name.value = ''
+            power.value = ''
+        })
+        remove.addEventListener('click', ()=> {
+            table.innerHTML = ``
+            result.innerHTML = ''
+        })
+    </script>
+    <script>
+        const calc = document.querySelector('.calc');
+
+        calc.addEventListener('click', ()=> {
+            let result = 0;
+            let amper = 0;
+            const netije = document.querySelector('.result')
+            const mis = document.querySelector('.mis')
+            const alyumin = document.querySelector('.alyumin')
+
+            const table = document.querySelector('tbody')
+            const rows = table.querySelectorAll('.kuwwat')
+            rows.forEach(row => {
+                result += parseInt(row.innerHTML)
+            })
+            amper = result/220
+            netije.innerHTML = amper.toFixed(2) + 'Amper'
+
+            if(amper < 2.4){ mis.innerHTML = '0.5mm'; alyumin.innerHTML = '0.5mm'}
+            else if(2.4 < amper < 3.3){ mis.innerHTML = '0.75mm'; alyumin.innerHTML = '0.75mm'}
+            else if(3.3 < amper < 3.7){ mis.innerHTML = '1mm'; alyumin.innerHTML = '1mm'}
+            else if(3.7 < amper < 5){ mis.innerHTML = '1.5mm'; alyumin.innerHTML = '1.5mm'}
+            else if(5 < amper < 6.6){ mis.innerHTML = '2.5mm'; alyumin.innerHTML = '2.5mm'}
+            else if(6.6 < amper < 9){ mis.innerHTML = '4mm'; alyumin.innerHTML = '4mm'}
+            else if(9 < amper < 11){ mis.innerHTML = '6mm'; alyumin.innerHTML = '6mm'}
+            else if(11 < amper < 17){ mis.innerHTML = '10mm'; alyumin.innerHTML = '10mm'}
+            else if(17 < amper < 22){ mis.innerHTML = '16mm'; alyumin.innerHTML = '16mm'}
+            else if(22 < amper < 30){ mis.innerHTML = '25mm'; alyumin.innerHTML = '25mm'}
+            else if(30 < amper < 37){ mis.innerHTML = '35mm'; alyumin.innerHTML = '35mm'}
+
+        })
+    </script>
+</body>
+</html>
