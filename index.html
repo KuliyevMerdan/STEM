@@ -50,6 +50,9 @@
         const power = document.querySelector('.power')
         const table = document.querySelector('tbody')
         const result = document.querySelector('.result')
+        const mis = document.querySelector('.mis')
+        const alyumin = document.querySelector('.alyumin')
+
 
         let data = ``;
 
@@ -67,6 +70,8 @@
         remove.addEventListener('click', ()=> {
             table.innerHTML = ``
             result.innerHTML = ''
+            mis.innerHTML = ''
+            alyumin.innerHTML = ''
         })
     </script>
     <script>
@@ -85,20 +90,30 @@
                 result += parseInt(row.innerHTML)
             })
             amper = result/220
+
             netije.innerHTML = amper.toFixed(2) + 'Amper'
 
-            if(amper < 2.4){ mis.innerHTML = '0.5mm'; alyumin.innerHTML = '0.5mm'}
-            else if(2.4 < amper < 3.3){ mis.innerHTML = '0.75mm'; alyumin.innerHTML = '0.75mm'}
-            else if(3.3 < amper < 3.7){ mis.innerHTML = '1mm'; alyumin.innerHTML = '1mm'}
-            else if(3.7 < amper < 5){ mis.innerHTML = '1.5mm'; alyumin.innerHTML = '1.5mm'}
-            else if(5 < amper < 6.6){ mis.innerHTML = '2.5mm'; alyumin.innerHTML = '2.5mm'}
-            else if(6.6 < amper < 9){ mis.innerHTML = '4mm'; alyumin.innerHTML = '4mm'}
-            else if(9 < amper < 11){ mis.innerHTML = '6mm'; alyumin.innerHTML = '6mm'}
-            else if(11 < amper < 17){ mis.innerHTML = '10mm'; alyumin.innerHTML = '10mm'}
-            else if(17 < amper < 22){ mis.innerHTML = '16mm'; alyumin.innerHTML = '16mm'}
-            else if(22 < amper < 30){ mis.innerHTML = '25mm'; alyumin.innerHTML = '25mm'}
-            else if(30 < amper < 37){ mis.innerHTML = '35mm'; alyumin.innerHTML = '35mm'}
-
+            const amperRanges = {
+                '0-2.4': { mis: '0.5mm', alyumin: '0.5mm' },
+                '2.4-3.3': { mis: '0.75mm', alyumin: '0.75mm' },
+                '3.3-3.7': { mis: '1mm', alyumin: '1mm' },
+                '3.7-5': { mis: '1.5mm', alyumin: '1.5mm' },
+                '5-6.6': { mis: '2.5mm', alyumin: '2.5mm' },
+                '6.6-9': { mis: '4mm', alyumin: '4mm' },
+                '9-11': { mis: '6mm', alyumin: '6mm' },
+                '11-17': { mis: '10mm', alyumin: '10mm' },
+                '17-22': { mis: '16mm', alyumin: '16mm' },
+                '22-30': { mis: '25mm', alyumin: '25mm' },
+                '30-37': { mis: '35mm', alyumin: '35mm' },
+            };
+            for (const [range, values] of Object.entries(amperRanges)) {
+                const [min, max] = range.split('-').map(Number);
+                if (min < amper && amper < max) {
+                mis.innerHTML = values.mis;
+                alyumin.innerHTML = values.alyumin;
+                break;
+                }
+            }
         })
     </script>
 </body>
